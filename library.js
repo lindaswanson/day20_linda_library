@@ -26,25 +26,56 @@ function getInput(userPrompt) {
   return sget(userPrompt).trim();
 }
 
-/*
-library
-	inventory array of books
-	add books
-	remove books
-	view all books
-	view books where genre = x
-	search by title
-	search by author
+var library = {
+	books: [],
+	addBook: function(book){
+		this.books.push(book);
+	},
+	removeBook: function() {
+
+	},
+	viewAllBooks: function() {
+		console.log("List of all the books in the library:");
+		/* FIXME: tried forEach, but something's not right.  Returning to the basic for loop.
+		this.books.forEach(function(book)) {
+			console.log("Title: " + book.title;);
+		}
+		*/
+		for (var i = 0; i < this.books.length; i++) {
+			console.log((i + 1) + ". Title: " + this.books[i].title + "\tAuthor: " + this.books[i].author + "\tGenre: " + this.books[i].genre + "\tPages: " + this.books[i].pages + "\tChecked In: " + (this.books[i].checkedIn ? "yes" : "no"));
+		};
+
+	},
+	viewBooksByGenre: function() {
+
+	},
+	findBookByTitle: function() {
+
+	},
+	findBookByAuthor: function() {
+
+	}
+};
 
 
-book
-	title
-	author
-	genre
-	totalpages
-	boolean checkedin/out
+function Book(title, author, genre, pages, checkedIn) {
+	this.title = title;
+	this.author = author;
+	this.genre = genre;
+	this.pages = pages;
+	this.checkedIn = checkedIn;
+	/* trying Terry Talk's override toString to print out the object's contents so I don't get object Object
+	this.prototype.toString = function bookToString() {
+  		var ret = 'Title: ' + this.title + ' Author: ' + this.author + ' Genre: ' + this.genre + ' Pages: ' + this.pages + ' Checked In: ' + this.checkedIn;
+  		return ret;
+	}
+	*/
+}
+
+/* TO DO: break out validation for user's book info input.  Check for blank text strings, numeric # of pages, move yes/no validation from case 1 to here.
+function validateBookInput() {
+}
 */
-
 
 function showLibraryMenu() {
 	console.log("\nPlease choose from the following options:");
@@ -56,43 +87,64 @@ function showLibraryMenu() {
 	console.log("6 - Search for a book by author");
 	console.log("exit - Exit the library program.");
 
-	menuChoice = getInput("What would you like to do?");
-	console.log("TEST: menuChoice is " + menuChoice);
-
-	switch (menuChoice) {
+	switch (getInput("What would you like to do?")) {
 		case "1":
 			console.log("TEST: Add a book");
-			//library.addBook();
+			newBook = new Book(getInput("Enter book title:"), getInput("Enter author:"), getInput("Enter genre:"), Number(getInput("Now many pages does it have?")), getInput("Is it checked in? (y/n)").toLowerCase());
+			//console.log("TEST: newBook is: " + newBook.bookToString());
+			switch (newBook.checkedIn) {
+				case "yes":
+				case "y":
+					newBook.checkedIn = true;
+					break;
+				case "no":
+				case "n":
+					newBook.checkedIn = false;
+					break;
+				default:
+					console.log("Please answer 'y' or 'n' whether the book was checked in. Please add it again.");
+					showLibraryMenu();
+					return;
+			}
+			library.addBook(newBook);
+			console.log("TEST: First book added to library: " + library.books[0].title + library.books[0].author + library.books[0].genre + library.books[0].pages + library.books[0].checkedIn);
 			showLibraryMenu();
 			break;
+
 		case "2":
 			console.log("TEST: Remove a book");
 			//library.removeBook();
 			showLibraryMenu();
 			break;
+
 		case "3":
 			console.log("TEST: View all books");
-			//library.viewAllBooks();
+			library.viewAllBooks();
 			showLibraryMenu();
 			break;
+
 		case "4":
 			console.log("TEST: View books by genre");
 			//library.viewBooksByGenre();
 			showLibraryMenu();
 			break;
+
 		case "5":
 			console.log("TEST: Find book by title");
 			//library.findBookByTitle();
 			showLibraryMenu();
 			break;
+
 		case "6":
 			console.log("TEST: Find book by author");
 			//library.findBookByAuthor();
 			showLibraryMenu();
 			break;
+
 		case "exit":
 			console.log("Thank you for upgrading to the library program instead of using the card catalog.");
 			break;
+
 		default:
 			console.log("Sorry, this program isn't designed to do that yet.  Please submit suggestions for additional features you would like to use.");
 			showLibraryMenu();
