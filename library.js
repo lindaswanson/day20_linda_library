@@ -32,7 +32,7 @@ var library = {
 		this.books.push(book);
 	},
 	removeBook: function() {
-
+		console.log("TEST: Stub function for removing a book from the library's array of books.")
 	},
 	viewAllBooks: function() {
 		console.log("List of all the books in the library:");
@@ -47,13 +47,14 @@ var library = {
 
 	},
 	viewBooksByGenre: function() {
-
+		console.log("TEST: Stub function for viewing all the books in library.books array whose book.genre matches a genre input by the librarian.")
 	},
+	// Once basic functionality is working, possibly combine these next 2 functions into one, passing a parameter of how you'd like to search (by title or author -- or potentially any other characteristic)
 	findBookByTitle: function() {
-
+		console.log("TEST: Stub function for finding a book in the library.books array whose book.title matches the title typed in by the librarian.")
 	},
 	findBookByAuthor: function() {
-
+		console.log("TEST: Stub function for finding a book in the library.books array whose book.author matches the title typed in by the librarian.")
 	}
 };
 
@@ -89,8 +90,9 @@ function showLibraryMenu() {
 
 	switch (getInput("What would you like to do?")) {
 		case "1":
-			console.log("TEST: Add a book");
+			//console.log("TEST: Add a book");
 			newBook = new Book(getInput("Enter book title:"), getInput("Enter author:"), getInput("Enter genre:"), Number(getInput("Now many pages does it have?")), getInput("Is it checked in? (y/n)").toLowerCase());
+			// Tried Terry Talk suggestion of overriding toString, but it didn't work.
 			//console.log("TEST: newBook is: " + newBook.bookToString());
 			switch (newBook.checkedIn) {
 				case "yes":
@@ -107,37 +109,36 @@ function showLibraryMenu() {
 					return;
 			}
 			library.addBook(newBook);
-			console.log("TEST: First book added to library: " + library.books[0].title + library.books[0].author + library.books[0].genre + library.books[0].pages + library.books[0].checkedIn);
 			showLibraryMenu();
 			break;
 
 		case "2":
-			console.log("TEST: Remove a book");
-			//library.removeBook();
+			//console.log("TEST: Remove a book");
+			library.removeBook();
 			showLibraryMenu();
 			break;
 
 		case "3":
-			console.log("TEST: View all books");
+			//console.log("TEST: View all books");
 			library.viewAllBooks();
 			showLibraryMenu();
 			break;
 
 		case "4":
-			console.log("TEST: View books by genre");
-			//library.viewBooksByGenre();
+			//console.log("TEST: View books by genre");
+			library.viewBooksByGenre();
 			showLibraryMenu();
 			break;
 
 		case "5":
-			console.log("TEST: Find book by title");
-			//library.findBookByTitle();
+			//console.log("TEST: Find book by title");
+			library.findBookByTitle();
 			showLibraryMenu();
 			break;
 
 		case "6":
-			console.log("TEST: Find book by author");
-			//library.findBookByAuthor();
+			//console.log("TEST: Find book by author");
+			library.findBookByAuthor();
 			showLibraryMenu();
 			break;
 
